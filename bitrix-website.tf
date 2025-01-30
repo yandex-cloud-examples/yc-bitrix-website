@@ -165,7 +165,8 @@ resource "yandex_compute_instance" "vm-bitrix" {
   }
 }
 
-# Создание кластера БД MySQL
+# Создание кластера Managed Service for MySQL
+
 
 resource "yandex_mdb_mysql_cluster" "bitrix-cluster" {
   name               = "BitrixMySQL"
