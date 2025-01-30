@@ -44,21 +44,21 @@ resource "yandex_vpc_network" "network-1" {
 
 resource "yandex_vpc_subnet" "subnet-1" {
   name           = "subnet1"
-  zone           = "{{ region-id }}-a"
+  zone           = "ru-central1-a"
   network_id     = yandex_vpc_network.network-1.id
   v4_cidr_blocks = ["192.168.1.0/24"]
 }
 
 resource "yandex_vpc_subnet" "subnet-2" {
   name           = "subnet2"
-  zone           = "{{ region-id }}-b"
+  zone           = "ru-central1-b"
   network_id     = yandex_vpc_network.network-1.id
   v4_cidr_blocks = ["192.168.2.0/24"]
 }
 
 resource "yandex_vpc_subnet" "subnet-3" {
   name           = "subnet3"
-  zone           = "{{ region-id }}-d"
+  zone           = "ru-central1-d"
   network_id     = yandex_vpc_network.network-1.id
   v4_cidr_blocks = ["192.168.3.0/24"]
 }
@@ -132,7 +132,7 @@ data "yandex_compute_image" "ubuntu-image" {
 resource "yandex_compute_disk" "boot-disk" {
   name     = "bootdisk"
   type     = "network-ssd"
-  zone     = "{{ region-id }}-a"
+  zone     = "ru-central1-a"
   size     = "24"
   image_id = data.yandex_compute_image.ubuntu-image.id
 }
@@ -142,7 +142,7 @@ resource "yandex_compute_disk" "boot-disk" {
 resource "yandex_compute_instance" "vm-bitrix" {
   name        = "bitrixwebsite"
   platform_id = "standard-v3"
-  zone        = "{{ region-id }}-a"
+  zone        = "ru-central1-a"
 
   resources {
     core_fraction = 20
@@ -181,13 +181,13 @@ resource "yandex_mdb_mysql_cluster" "bitrix-cluster" {
   }
 
   host {
-    zone             = "{{ region-id }}-a"
+    zone             = "ru-central1-a"
     subnet_id        = yandex_vpc_subnet.subnet-1.id
     assign_public_ip = false
   }
 
   host {
-    zone             = "{{ region-id }}-b"
+    zone             = "ru-central1-b"
     subnet_id        = yandex_vpc_subnet.subnet-2.id
     assign_public_ip = false
   }
